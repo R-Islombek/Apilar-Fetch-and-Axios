@@ -1,72 +1,47 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import "./App.css";
 
 const App = () => {
-  const { register, handleSubmit, reset, setValue } = useForm();
-  const [users, setUsers] = useState([]);
-  const [editId, setEditId] = useState(null);
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
-  const onSubmit = (data) => {
-    if (!data.name.trim()) return;
-
-    if (editId) {
-      setUsers(
-        users.map((user) =>
-          user.id === editId ? { ...user, name: data.name } : user
-        )
-      );
-      setEditId(null);
-    } else {
-      setUsers([...users, { id: Date.now(), name: data.name }]);
-    }
-
-    reset();
+  const addTodo = () => {
+    if (inputValue.trim() === "") return;
+    setTodos([...todos, { text: inputValue, completed: false }]);
+    setInputValue("");
   };
 
-  const handleDelete = (id) => {
-    setUsers(users.filter((u) => u.id !== id));
+  const toggleTodo = (index) => {
+    const updated = todos.map((todo, i) =>
+      i === index ? { ...todo, completed: !todo.completed } : todo
+    );
+    setTodos(updated);
   };
 
-  const handleEdit = (id) => {
-    const user = users.find((u) => u.id === id);
-    setValue("name", user.name);
-    setEditId(id);
+  const deleteTodo = (index) => {
+    setTodos(todos.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="container">
-      <h2 className="title">CRUD (React Hook Form)</h2>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
+    <div className="app">
+      <h1>📝 Todo List</h1>
+      <div className="todo-input">
         <input
-          {...register("name")}
-          placeholder="Ism kiriting..."
-          className="input"
+          type="text"
+          placeholder="Vazifa yozing..."
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
         />
-        <button type="submit" className="btn primary">
-          {editId ? "Yangilash" : "Qo'shish"}
-        </button>
-      </form>
+        <button onClick={addTodo}>➕ Qo‘shish</button>
+      </div>
 
-      <ul className="list">
-        {users.map((user) => (
-          <li key={user.id} className="list-item">
-            <span>{user.name}</span>
-            <div className="btn-group">
-              <button
-                className="btn edit"
-                onClick={() => handleEdit(user.id)}
-              >
-                ✏
-              </button>
-              <button
-                className="btn delete"
-                onClick={() => handleDelete(user.id)}
-              >
-                ❌
-              </button>
-            </div>
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index} className={todo.completed ? "completed" : ""}>
+            <span onClick={() => toggleTodo(index)}>{todo.text}</span>
+            <button className="delete" onClick={() => deleteTodo(index)}>
+              ❌
+            </button>
           </li>
         ))}
       </ul>
