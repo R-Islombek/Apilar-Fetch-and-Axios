@@ -1,51 +1,45 @@
-.container {
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #f7f7f7;
-  border-radius: 8px;
-  font-family: sans-serif;
-}
-
-h2 {
-  text-align: center;
-}
-
-.form {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.input {
-  flex: 1;
-  padding: 8px;
-}
-
-.btn {
-  padding: 8px 12px;
-  background: #007bff;
-  border: none;
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.btn.delete {
-  background: red;
-  margin-left: 10px;
-}
-
-.list {
-  list-style: none;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #74ebd5, #9face6);
+  margin: 0;
   padding: 0;
 }
 
-.list-item {
-  padding: 8px;
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+  padding: 40px;
+}
+
+.card {
   background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.user-img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.card h1 {
+  font-size: 1.3rem;
+  color: #333;
   margin-bottom: 8px;
-  border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
+}
+
+.card p {
+  color: #777;
+  font-size: 1rem;
 }
