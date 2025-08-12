@@ -1,43 +1,72 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import "./App.css";
 
 const App = () => {
-  const { register, handleSubmit, reset } = useForm();
-  const [todos, setTodos] = useState([]);
+  const { register, handleSubmit, reset, setValue } = useForm();
+  const [users, setUsers] = useState([]);
+  const [editId, setEditId] = useState(null);
 
   const onSubmit = (data) => {
-    if (!data.task.trim()) return;
-    setTodos([...todos, { id: Date.now(), text: data.task }]);
-    reset(); // inputni tozalash
+    if (!data.name.trim()) return;
+
+    if (editId) {
+      setUsers(
+        users.map((user) =>
+          user.id === editId ? { ...user, name: data.name } : user
+        )
+      );
+      setEditId(null);
+    } else {
+      setUsers([...users, { id: Date.now(), name: data.name }]);
+    }
+
+    reset();
   };
 
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const handleDelete = (id) => {
+    setUsers(users.filter((u) => u.id !== id));
+  };
+
+  const handleEdit = (id) => {
+    const user = users.find((u) => u.id === id);
+    setValue("name", user.name);
+    setEditId(id);
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
-      <h2>Todo (React Hook Form)</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="container">
+      <h2 className="title">CRUD (React Hook Form)</h2>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="form">
         <input
-          {...register("task")}
-          placeholder="Yangi vazifa..."
+          {...register("name")}
+          placeholder="Ism kiriting..."
+          className="input"
         />
-        <button type="submit">Qo'shish</button>
+        <button type="submit" className="btn primary">
+          {editId ? "Yangilash" : "Qo'shish"}
+        </button>
       </form>
 
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {todos.map((todo) => (
-          <li
-            key={todo.id}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "8px",
-            }}
-          >
-            {todo.text}
-            <button onClick={() => deleteTodo(todo.id)}>❌</button>
+      <ul className="list">
+        {users.map((user) => (
+          <li key={user.id} className="list-item">
+            <span>{user.name}</span>
+            <div className="btn-group">
+              <button
+                className="btn edit"
+                onClick={() => handleEdit(user.id)}
+              >
+                ✏
+              </button>
+              <button
+                className="btn delete"
+                onClick={() => handleDelete(user.id)}
+              >
+                ❌
+              </button>
+            </div>
           </li>
         ))}
       </ul>

@@ -1,66 +1,98 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  margin: 0;
+  padding: 0;
 }
 
-.form-container {
-  max-width: 400px;
-  margin: 60px auto;
+.container {
+  max-width: 500px;
+  margin: 50px auto;
   background: white;
   padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-h1 {
+.title {
   text-align: center;
   color: #333;
+  margin-bottom: 20px;
 }
 
-form {
+.form {
   display: flex;
-  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-label {
-  margin-top: 10px;
-  font-weight: bold;
-  color: #555;
-}
-
-input {
+.input {
+  flex: 1;
   padding: 10px;
-  margin-top: 5px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: #4facfe;
   outline: none;
-  transition: border 0.3s;
 }
 
-input:focus {
-  border-color: #007bff;
-}
-
-button {
-  margin-top: 15px;
-  padding: 10px;
+.btn {
+  padding: 8px 12px;
   border: none;
-  background: #007bff;
-  color: white;
   border-radius: 8px;
-  font-size: 16px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: 0.3s ease;
 }
 
-button:hover {
-  background: #0056b3;
+.btn.primary {
+  background: #4facfe;
+  color: white;
 }
 
-.result-box {
-  margin-top: 20px;
-  padding: 15px;
-  background: #eaf4ff;
+.btn.primary:hover {
+  background: #3a8dd6;
+}
+
+.btn.edit {
+  background: #ffd700;
+}
+
+.btn.edit:hover {
+  background: #e6c200;
+}
+
+.btn.delete {
+  background: #ff6b6b;
+  color: white;
+}
+
+.btn.delete:hover {
+  background: #d94c4c;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list-item {
+  background: #f9f9f9;
+  margin-bottom: 10px;
+  padding: 10px 15px;
   border-radius: 8px;
-  border-left: 4px solid #007bff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-item:hover {
+  background: #eef6ff;
+}
+
+.btn-group {
+  display: flex;
+  gap: 5px;
 }
